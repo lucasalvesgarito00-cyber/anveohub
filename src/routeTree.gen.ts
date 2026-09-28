@@ -10,33 +10,205 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgendaRouteImport } from './routes/agenda'
+import { Route as AgentesIaRouteImport } from './routes/agentes-ia'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as AutomacoesRouteImport } from './routes/automacoes'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as ConversasRouteImport } from './routes/conversas'
+import { Route as CrmRouteImport } from './routes/crm'
+import { Route as EquipeRouteImport } from './routes/equipe'
+import { Route as IntegracoesRouteImport } from './routes/integracoes'
+import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as RelatoriosRouteImport } from './routes/relatorios'
+import { Route as TarefasRouteImport } from './routes/tarefas'
+import { Route as LeadsLeadIdRouteImport } from './routes/leads.$leadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentesIaRoute = AgentesIaRouteImport.update({
+  id: '/agentes-ia',
+  path: '/agentes-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacoesRoute = AutomacoesRouteImport.update({
+  id: '/automacoes',
+  path: '/automacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConversasRoute = ConversasRouteImport.update({
+  id: '/conversas',
+  path: '/conversas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipeRoute = EquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegracoesRoute = IntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RelatoriosRoute = RelatoriosRouteImport.update({
+  id: '/relatorios',
+  path: '/relatorios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TarefasRoute = TarefasRouteImport.update({
+  id: '/tarefas',
+  path: '/tarefas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsLeadIdRoute = LeadsLeadIdRouteImport.update({
+  id: '/$leadId',
+  path: '/$leadId',
+  getParentRoute: () => LeadsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conversas': typeof ConversasRoute
+  '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
+  '/tarefas': typeof TarefasRoute
+  '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conversas': typeof ConversasRoute
+  '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
+  '/tarefas': typeof TarefasRoute
+  '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
+  '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conversas': typeof ConversasRoute
+  '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
+  '/tarefas': typeof TarefasRoute
+  '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
+    | '/automacoes'
+    | '/configuracoes'
+    | '/conversas'
+    | '/crm'
+    | '/equipe'
+    | '/integracoes'
+    | '/leads'
+    | '/relatorios'
+    | '/tarefas'
+    | '/leads/$leadId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
+    | '/automacoes'
+    | '/configuracoes'
+    | '/conversas'
+    | '/crm'
+    | '/equipe'
+    | '/integracoes'
+    | '/leads'
+    | '/relatorios'
+    | '/tarefas'
+    | '/leads/$leadId'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
+    | '/automacoes'
+    | '/configuracoes'
+    | '/conversas'
+    | '/crm'
+    | '/equipe'
+    | '/integracoes'
+    | '/leads'
+    | '/relatorios'
+    | '/tarefas'
+    | '/leads/$leadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
+  AgentesIaRoute: typeof AgentesIaRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  AutomacoesRoute: typeof AutomacoesRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  ConversasRoute: typeof ConversasRoute
+  CrmRoute: typeof CrmRoute
+  EquipeRoute: typeof EquipeRoute
+  IntegracoesRoute: typeof IntegracoesRoute
+  LeadsRoute: typeof LeadsRouteWithChildren
+  RelatoriosRoute: typeof RelatoriosRoute
+  TarefasRoute: typeof TarefasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +220,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agentes-ia': {
+      id: '/agentes-ia'
+      path: '/agentes-ia'
+      fullPath: '/agentes-ia'
+      preLoaderRoute: typeof AgentesIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacoes': {
+      id: '/automacoes'
+      path: '/automacoes'
+      fullPath: '/automacoes'
+      preLoaderRoute: typeof AutomacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conversas': {
+      id: '/conversas'
+      path: '/conversas'
+      fullPath: '/conversas'
+      preLoaderRoute: typeof ConversasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipe': {
+      id: '/equipe'
+      path: '/equipe'
+      fullPath: '/equipe'
+      preLoaderRoute: typeof EquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integracoes': {
+      id: '/integracoes'
+      path: '/integracoes'
+      fullPath: '/integracoes'
+      preLoaderRoute: typeof IntegracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/relatorios': {
+      id: '/relatorios'
+      path: '/relatorios'
+      fullPath: '/relatorios'
+      preLoaderRoute: typeof RelatoriosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarefas': {
+      id: '/tarefas'
+      path: '/tarefas'
+      fullPath: '/tarefas'
+      preLoaderRoute: typeof TarefasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads/$leadId': {
+      id: '/leads/$leadId'
+      path: '/$leadId'
+      fullPath: '/leads/$leadId'
+      preLoaderRoute: typeof LeadsLeadIdRouteImport
+      parentRoute: typeof LeadsRoute
+    }
   }
 }
 
+interface LeadsRouteChildren {
+  LeadsLeadIdRoute: typeof LeadsLeadIdRoute
+}
+
+const LeadsRouteChildren: LeadsRouteChildren = {
+  LeadsLeadIdRoute: LeadsLeadIdRoute,
+}
+
+const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
+  AgentesIaRoute: AgentesIaRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  AutomacoesRoute: AutomacoesRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  ConversasRoute: ConversasRoute,
+  CrmRoute: CrmRoute,
+  EquipeRoute: EquipeRoute,
+  IntegracoesRoute: IntegracoesRoute,
+  LeadsRoute: LeadsRouteWithChildren,
+  RelatoriosRoute: RelatoriosRoute,
+  TarefasRoute: TarefasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

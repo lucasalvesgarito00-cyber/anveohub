@@ -19,6 +19,7 @@
  */
 
 @theme inline {
+  --font-sans: "DM Sans", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,42 +60,54 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-primary-hover: var(--primary-hover);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 0.5rem;
+  --background: oklch(0.125 0.008 260);
+  --foreground: oklch(0.96 0.005 255);
+  --card: oklch(0.165 0.009 260);
+  --card-foreground: oklch(0.96 0.005 255);
+  --popover: oklch(0.19 0.011 260);
+  --popover-foreground: oklch(0.96 0.005 255);
+  --primary: oklch(0.62 0.21 255);
+  --primary-hover: oklch(0.68 0.19 252);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.215 0.012 260);
+  --secondary-foreground: oklch(0.91 0.006 255);
+  --muted: oklch(0.205 0.01 260);
+  --muted-foreground: oklch(0.65 0.015 255);
+  --accent: oklch(0.245 0.018 255);
+  --accent-foreground: oklch(0.98 0.004 255);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.29 0.013 260);
+  --input: oklch(0.245 0.012 260);
+  --ring: oklch(0.62 0.21 255);
+  --surface: oklch(0.153 0.009 260);
+  --surface-raised: oklch(0.19 0.011 260);
+  --success: oklch(0.71 0.16 155);
+  --warning: oklch(0.78 0.16 80);
+  --info: oklch(0.7 0.13 230);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sidebar: oklch(0.105 0.008 260);
+  --sidebar-foreground: oklch(0.9 0.006 255);
+  --sidebar-primary: oklch(0.62 0.21 255);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.2 0.018 255);
+  --sidebar-accent-foreground: oklch(0.98 0.004 255);
+  --sidebar-border: oklch(0.24 0.012 260);
+  --sidebar-ring: oklch(0.62 0.21 255);
 }
 
 .dark {
@@ -140,5 +153,15 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1;
   }
+  button, a, input, select { letter-spacing: 0; }
 }
+
+@utility panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+@utility fine-grid { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size: 32px 32px; }
+@utility scroll-thin { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+@utility page-enter { animation: page-enter .28s ease-out both; }
+@keyframes page-enter { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms!important; transition-duration: .01ms!important; } }
