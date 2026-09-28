@@ -14,9 +14,11 @@ import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as AgentesIaRouteImport } from './routes/agentes-ia'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AutomacoesRouteImport } from './routes/automacoes'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as ConversasRouteImport } from './routes/conversas'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as EquipeRouteImport } from './routes/equipe'
+import { Route as IntegracoesRouteImport } from './routes/integracoes'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as RelatoriosRouteImport } from './routes/relatorios'
 import { Route as TarefasRouteImport } from './routes/tarefas'
@@ -47,6 +49,11 @@ const AutomacoesRoute = AutomacoesRouteImport.update({
   path: '/automacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConversasRoute = ConversasRouteImport.update({
   id: '/conversas',
   path: '/conversas',
@@ -60,6 +67,11 @@ const CrmRoute = CrmRouteImport.update({
 const EquipeRoute = EquipeRouteImport.update({
   id: '/equipe',
   path: '/equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegracoesRoute = IntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeadsRoute = LeadsRouteImport.update({
@@ -89,9 +101,11 @@ export interface FileRoutesByFullPath {
   '/agentes-ia': typeof AgentesIaRoute
   '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
   '/leads': typeof LeadsRouteWithChildren
   '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
@@ -103,9 +117,11 @@ export interface FileRoutesByTo {
   '/agentes-ia': typeof AgentesIaRoute
   '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
   '/leads': typeof LeadsRouteWithChildren
   '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
@@ -118,9 +134,11 @@ export interface FileRoutesById {
   '/agentes-ia': typeof AgentesIaRoute
   '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
+  '/configuracoes': typeof ConfiguracoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/equipe': typeof EquipeRoute
+  '/integracoes': typeof IntegracoesRoute
   '/leads': typeof LeadsRouteWithChildren
   '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
@@ -134,9 +152,11 @@ export interface FileRouteTypes {
     | '/agentes-ia'
     | '/analytics'
     | '/automacoes'
+    | '/configuracoes'
     | '/conversas'
     | '/crm'
     | '/equipe'
+    | '/integracoes'
     | '/leads'
     | '/relatorios'
     | '/tarefas'
@@ -148,9 +168,11 @@ export interface FileRouteTypes {
     | '/agentes-ia'
     | '/analytics'
     | '/automacoes'
+    | '/configuracoes'
     | '/conversas'
     | '/crm'
     | '/equipe'
+    | '/integracoes'
     | '/leads'
     | '/relatorios'
     | '/tarefas'
@@ -162,9 +184,11 @@ export interface FileRouteTypes {
     | '/agentes-ia'
     | '/analytics'
     | '/automacoes'
+    | '/configuracoes'
     | '/conversas'
     | '/crm'
     | '/equipe'
+    | '/integracoes'
     | '/leads'
     | '/relatorios'
     | '/tarefas'
@@ -177,9 +201,11 @@ export interface RootRouteChildren {
   AgentesIaRoute: typeof AgentesIaRoute
   AnalyticsRoute: typeof AnalyticsRoute
   AutomacoesRoute: typeof AutomacoesRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
   ConversasRoute: typeof ConversasRoute
   CrmRoute: typeof CrmRoute
   EquipeRoute: typeof EquipeRoute
+  IntegracoesRoute: typeof IntegracoesRoute
   LeadsRoute: typeof LeadsRouteWithChildren
   RelatoriosRoute: typeof RelatoriosRoute
   TarefasRoute: typeof TarefasRoute
@@ -222,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutomacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/conversas': {
       id: '/conversas'
       path: '/conversas'
@@ -241,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/equipe'
       fullPath: '/equipe'
       preLoaderRoute: typeof EquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integracoes': {
+      id: '/integracoes'
+      path: '/integracoes'
+      fullPath: '/integracoes'
+      preLoaderRoute: typeof IntegracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leads': {
@@ -290,9 +330,11 @@ const rootRouteChildren: RootRouteChildren = {
   AgentesIaRoute: AgentesIaRoute,
   AnalyticsRoute: AnalyticsRoute,
   AutomacoesRoute: AutomacoesRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
   ConversasRoute: ConversasRoute,
   CrmRoute: CrmRoute,
   EquipeRoute: EquipeRoute,
+  IntegracoesRoute: IntegracoesRoute,
   LeadsRoute: LeadsRouteWithChildren,
   RelatoriosRoute: RelatoriosRoute,
   TarefasRoute: TarefasRoute,
