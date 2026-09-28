@@ -16,7 +16,9 @@ import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AutomacoesRouteImport } from './routes/automacoes'
 import { Route as ConversasRouteImport } from './routes/conversas'
 import { Route as CrmRouteImport } from './routes/crm'
+import { Route as EquipeRouteImport } from './routes/equipe'
 import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as RelatoriosRouteImport } from './routes/relatorios'
 import { Route as TarefasRouteImport } from './routes/tarefas'
 import { Route as LeadsLeadIdRouteImport } from './routes/leads.$leadId'
 
@@ -55,9 +57,19 @@ const CrmRoute = CrmRouteImport.update({
   path: '/crm',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EquipeRoute = EquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeadsRoute = LeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RelatoriosRoute = RelatoriosRouteImport.update({
+  id: '/relatorios',
+  path: '/relatorios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TarefasRoute = TarefasRouteImport.update({
@@ -79,7 +91,9 @@ export interface FileRoutesByFullPath {
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
@@ -91,7 +105,9 @@ export interface FileRoutesByTo {
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
@@ -104,7 +120,9 @@ export interface FileRoutesById {
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
+  '/equipe': typeof EquipeRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/relatorios': typeof RelatoriosRoute
   '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
@@ -118,7 +136,9 @@ export interface FileRouteTypes {
     | '/automacoes'
     | '/conversas'
     | '/crm'
+    | '/equipe'
     | '/leads'
+    | '/relatorios'
     | '/tarefas'
     | '/leads/$leadId'
   fileRoutesByTo: FileRoutesByTo
@@ -130,7 +150,9 @@ export interface FileRouteTypes {
     | '/automacoes'
     | '/conversas'
     | '/crm'
+    | '/equipe'
     | '/leads'
+    | '/relatorios'
     | '/tarefas'
     | '/leads/$leadId'
   id:
@@ -142,7 +164,9 @@ export interface FileRouteTypes {
     | '/automacoes'
     | '/conversas'
     | '/crm'
+    | '/equipe'
     | '/leads'
+    | '/relatorios'
     | '/tarefas'
     | '/leads/$leadId'
   fileRoutesById: FileRoutesById
@@ -155,7 +179,9 @@ export interface RootRouteChildren {
   AutomacoesRoute: typeof AutomacoesRoute
   ConversasRoute: typeof ConversasRoute
   CrmRoute: typeof CrmRoute
+  EquipeRoute: typeof EquipeRoute
   LeadsRoute: typeof LeadsRouteWithChildren
+  RelatoriosRoute: typeof RelatoriosRoute
   TarefasRoute: typeof TarefasRoute
 }
 
@@ -210,11 +236,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CrmRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/equipe': {
+      id: '/equipe'
+      path: '/equipe'
+      fullPath: '/equipe'
+      preLoaderRoute: typeof EquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/leads': {
       id: '/leads'
       path: '/leads'
       fullPath: '/leads'
       preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/relatorios': {
+      id: '/relatorios'
+      path: '/relatorios'
+      fullPath: '/relatorios'
+      preLoaderRoute: typeof RelatoriosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tarefas': {
@@ -252,7 +292,9 @@ const rootRouteChildren: RootRouteChildren = {
   AutomacoesRoute: AutomacoesRoute,
   ConversasRoute: ConversasRoute,
   CrmRoute: CrmRoute,
+  EquipeRoute: EquipeRoute,
   LeadsRoute: LeadsRouteWithChildren,
+  RelatoriosRoute: RelatoriosRoute,
   TarefasRoute: TarefasRoute,
 }
 export const routeTree = rootRouteImport
