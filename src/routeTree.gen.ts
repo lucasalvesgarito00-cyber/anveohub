@@ -10,14 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgendaRouteImport } from './routes/agenda'
+import { Route as AutomacoesRouteImport } from './routes/automacoes'
 import { Route as ConversasRouteImport } from './routes/conversas'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as TarefasRouteImport } from './routes/tarefas'
 import { Route as LeadsLeadIdRouteImport } from './routes/leads.$leadId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacoesRoute = AutomacoesRouteImport.update({
+  id: '/automacoes',
+  path: '/automacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConversasRoute = ConversasRouteImport.update({
@@ -35,6 +48,11 @@ const LeadsRoute = LeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TarefasRoute = TarefasRouteImport.update({
+  id: '/tarefas',
+  path: '/tarefas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeadsLeadIdRoute = LeadsLeadIdRouteImport.update({
   id: '/$leadId',
   path: '/$leadId',
@@ -43,39 +61,76 @@ const LeadsLeadIdRoute = LeadsLeadIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
   '/leads': typeof LeadsRouteWithChildren
+  '/tarefas': typeof TarefasRoute
   '/leads/$leadId': typeof LeadsLeadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/conversas' | '/crm' | '/leads' | '/leads/$leadId'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/automacoes'
+    | '/conversas'
+    | '/crm'
+    | '/leads'
+    | '/tarefas'
+    | '/leads/$leadId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/conversas' | '/crm' | '/leads' | '/leads/$leadId'
-  id: '__root__' | '/' | '/conversas' | '/crm' | '/leads' | '/leads/$leadId'
+  to:
+    | '/'
+    | '/agenda'
+    | '/automacoes'
+    | '/conversas'
+    | '/crm'
+    | '/leads'
+    | '/tarefas'
+    | '/leads/$leadId'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/automacoes'
+    | '/conversas'
+    | '/crm'
+    | '/leads'
+    | '/tarefas'
+    | '/leads/$leadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
+  AutomacoesRoute: typeof AutomacoesRoute
   ConversasRoute: typeof ConversasRoute
   CrmRoute: typeof CrmRoute
   LeadsRoute: typeof LeadsRouteWithChildren
+  TarefasRoute: typeof TarefasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +140,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacoes': {
+      id: '/automacoes'
+      path: '/automacoes'
+      fullPath: '/automacoes'
+      preLoaderRoute: typeof AutomacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conversas': {
@@ -106,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/leads'
       fullPath: '/leads'
       preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tarefas': {
+      id: '/tarefas'
+      path: '/tarefas'
+      fullPath: '/tarefas'
+      preLoaderRoute: typeof TarefasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/leads/$leadId': {
@@ -130,9 +206,12 @@ const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
+  AutomacoesRoute: AutomacoesRoute,
   ConversasRoute: ConversasRoute,
   CrmRoute: CrmRoute,
   LeadsRoute: LeadsRouteWithChildren,
+  TarefasRoute: TarefasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
