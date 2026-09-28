@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgendaRouteImport } from './routes/agenda'
+import { Route as AgentesIaRouteImport } from './routes/agentes-ia'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as AutomacoesRouteImport } from './routes/automacoes'
 import { Route as ConversasRouteImport } from './routes/conversas'
 import { Route as CrmRouteImport } from './routes/crm'
@@ -26,6 +28,16 @@ const IndexRoute = IndexRouteImport.update({
 const AgendaRoute = AgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentesIaRoute = AgentesIaRouteImport.update({
+  id: '/agentes-ia',
+  path: '/agentes-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AutomacoesRoute = AutomacoesRouteImport.update({
@@ -62,6 +74,8 @@ const LeadsLeadIdRoute = LeadsLeadIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
@@ -72,6 +86,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
@@ -83,6 +99,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agentes-ia': typeof AgentesIaRoute
+  '/analytics': typeof AnalyticsRoute
   '/automacoes': typeof AutomacoesRoute
   '/conversas': typeof ConversasRoute
   '/crm': typeof CrmRoute
@@ -95,6 +113,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
     | '/automacoes'
     | '/conversas'
     | '/crm'
@@ -105,6 +125,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
     | '/automacoes'
     | '/conversas'
     | '/crm'
@@ -115,6 +137,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/agenda'
+    | '/agentes-ia'
+    | '/analytics'
     | '/automacoes'
     | '/conversas'
     | '/crm'
@@ -126,6 +150,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
+  AgentesIaRoute: typeof AgentesIaRoute
+  AnalyticsRoute: typeof AnalyticsRoute
   AutomacoesRoute: typeof AutomacoesRoute
   ConversasRoute: typeof ConversasRoute
   CrmRoute: typeof CrmRoute
@@ -147,6 +173,20 @@ declare module '@tanstack/react-router' {
       path: '/agenda'
       fullPath: '/agenda'
       preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agentes-ia': {
+      id: '/agentes-ia'
+      path: '/agentes-ia'
+      fullPath: '/agentes-ia'
+      preLoaderRoute: typeof AgentesIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/automacoes': {
@@ -207,6 +247,8 @@ const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
+  AgentesIaRoute: AgentesIaRoute,
+  AnalyticsRoute: AnalyticsRoute,
   AutomacoesRoute: AutomacoesRoute,
   ConversasRoute: ConversasRoute,
   CrmRoute: CrmRoute,
