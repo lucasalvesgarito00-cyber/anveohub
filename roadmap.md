@@ -14,6 +14,7 @@
 
 ## Backend funcional
 
+- [ ] Reconectar o banco original — bloqueado: este projeto está atualmente vinculado ao Lovable Cloud vazio
 - [ ] Auditar estrutura e políticas existentes no backend
 - [ ] Implementar autenticação, sessão persistente e proteção das páginas internas
 - [ ] Resolver workspace do usuário por `profiles.workspace_id`
