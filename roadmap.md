@@ -11,3 +11,14 @@
 - [x] Analytics e Relatórios
 - [x] Equipe, Integrações e Configurações
 - [x] Validação desktop e mobile
+
+## Backend funcional
+
+- [ ] Auditar estrutura e políticas existentes no backend
+- [ ] Implementar autenticação, sessão persistente e proteção das páginas internas
+- [ ] Resolver workspace do usuário por `profiles.workspace_id`
+- [ ] Conectar Leads ao backend com criação, edição, exclusão, busca e filtros
+- [ ] Conectar CRM/deals ao backend e persistir alterações do pipeline
+- [ ] Conectar Tarefas ao backend com CRUD e conclusão
+- [ ] Calcular o Command Center somente com dados reais
+- [ ] Validar persistência, isolamento por workspace, estados e experiência responsiva
