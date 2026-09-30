@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/reset-password")({
-  ssr: false,
   head: () => ({ meta: [
     { title: "Redefinir senha — ANVEO HUB" },
     { name: "description", content: "Defina uma nova senha para sua conta ANVEO HUB." },
