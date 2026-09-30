@@ -5,7 +5,7 @@ import { activities, chartData, money } from "@/lib/anveo-data";
 import { Badge, PageHeader } from "@/components/anveo/page";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   head:()=>({meta:[{title:"Visão Geral — ANVEO HUB"},{name:"description",content:"Command Center da operação comercial."},{property:"og:title",content:"Visão Geral — ANVEO HUB"},{property:"og:description",content:"Command Center da operação comercial."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),
   component: Index,
 });

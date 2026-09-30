@@ -9,145 +9,147 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AgendaRouteImport } from './routes/agenda'
-import { Route as AgentesIaRouteImport } from './routes/agentes-ia'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
-import { Route as AutomacoesRouteImport } from './routes/automacoes'
-import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
-import { Route as ConversasRouteImport } from './routes/conversas'
-import { Route as CrmRouteImport } from './routes/crm'
-import { Route as EquipeRouteImport } from './routes/equipe'
-import { Route as IntegracoesRouteImport } from './routes/integracoes'
-import { Route as LeadsRouteImport } from './routes/leads'
-import { Route as RelatoriosRouteImport } from './routes/relatorios'
-import { Route as TarefasRouteImport } from './routes/tarefas'
-import { Route as LeadsLeadIdRouteImport } from './routes/leads.$leadId'
+import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
+import { Route as AuthenticatedAgentesIaRouteImport } from './routes/_authenticated/agentes-ia'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
+import { Route as AuthenticatedAutomacoesRouteImport } from './routes/_authenticated/automacoes'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
+import { Route as AuthenticatedConversasRouteImport } from './routes/_authenticated/conversas'
+import { Route as AuthenticatedCrmRouteImport } from './routes/_authenticated/crm'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
+import { Route as AuthenticatedIntegracoesRouteImport } from './routes/_authenticated/integracoes'
+import { Route as AuthenticatedLeadsRouteImport } from './routes/_authenticated/leads'
+import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
+import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticated/tarefas'
+import { Route as AuthenticatedLeadsLeadIdRouteImport } from './routes/_authenticated/leads.$leadId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AgendaRoute = AgendaRouteImport.update({
-  id: '/agenda',
+const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
+  id: '/_authenticated/agenda',
   path: '/agenda',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AgentesIaRoute = AgentesIaRouteImport.update({
-  id: '/agentes-ia',
+const AuthenticatedAgentesIaRoute = AuthenticatedAgentesIaRouteImport.update({
+  id: '/_authenticated/agentes-ia',
   path: '/agentes-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/_authenticated/analytics',
   path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AutomacoesRoute = AutomacoesRouteImport.update({
-  id: '/automacoes',
+const AuthenticatedAutomacoesRoute = AuthenticatedAutomacoesRouteImport.update({
+  id: '/_authenticated/automacoes',
   path: '/automacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConversasRoute = ConversasRouteImport.update({
-  id: '/conversas',
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/_authenticated/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedConversasRoute = AuthenticatedConversasRouteImport.update({
+  id: '/_authenticated/conversas',
   path: '/conversas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CrmRoute = CrmRouteImport.update({
-  id: '/crm',
+const AuthenticatedCrmRoute = AuthenticatedCrmRouteImport.update({
+  id: '/_authenticated/crm',
   path: '/crm',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EquipeRoute = EquipeRouteImport.update({
-  id: '/equipe',
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/_authenticated/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedEquipeRoute = AuthenticatedEquipeRouteImport.update({
+  id: '/_authenticated/equipe',
   path: '/equipe',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IntegracoesRoute = IntegracoesRouteImport.update({
-  id: '/integracoes',
-  path: '/integracoes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LeadsRoute = LeadsRouteImport.update({
-  id: '/leads',
+const AuthenticatedIntegracoesRoute =
+  AuthenticatedIntegracoesRouteImport.update({
+    id: '/_authenticated/integracoes',
+    path: '/integracoes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedLeadsRoute = AuthenticatedLeadsRouteImport.update({
+  id: '/_authenticated/leads',
   path: '/leads',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RelatoriosRoute = RelatoriosRouteImport.update({
-  id: '/relatorios',
+const AuthenticatedRelatoriosRoute = AuthenticatedRelatoriosRouteImport.update({
+  id: '/_authenticated/relatorios',
   path: '/relatorios',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TarefasRoute = TarefasRouteImport.update({
-  id: '/tarefas',
+const AuthenticatedTarefasRoute = AuthenticatedTarefasRouteImport.update({
+  id: '/_authenticated/tarefas',
   path: '/tarefas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LeadsLeadIdRoute = LeadsLeadIdRouteImport.update({
-  id: '/$leadId',
-  path: '/$leadId',
-  getParentRoute: () => LeadsRoute,
-} as any)
+const AuthenticatedLeadsLeadIdRoute =
+  AuthenticatedLeadsLeadIdRouteImport.update({
+    id: '/$leadId',
+    path: '/$leadId',
+    getParentRoute: () => AuthenticatedLeadsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/agenda': typeof AgendaRoute
-  '/agentes-ia': typeof AgentesIaRoute
-  '/analytics': typeof AnalyticsRoute
-  '/automacoes': typeof AutomacoesRoute
-  '/configuracoes': typeof ConfiguracoesRoute
-  '/conversas': typeof ConversasRoute
-  '/crm': typeof CrmRoute
-  '/equipe': typeof EquipeRoute
-  '/integracoes': typeof IntegracoesRoute
-  '/leads': typeof LeadsRouteWithChildren
-  '/relatorios': typeof RelatoriosRoute
-  '/tarefas': typeof TarefasRoute
-  '/leads/$leadId': typeof LeadsLeadIdRoute
+  '/agenda': typeof AuthenticatedAgendaRoute
+  '/agentes-ia': typeof AuthenticatedAgentesIaRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/automacoes': typeof AuthenticatedAutomacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/conversas': typeof AuthenticatedConversasRoute
+  '/crm': typeof AuthenticatedCrmRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/equipe': typeof AuthenticatedEquipeRoute
+  '/integracoes': typeof AuthenticatedIntegracoesRoute
+  '/leads': typeof AuthenticatedLeadsRouteWithChildren
+  '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/tarefas': typeof AuthenticatedTarefasRoute
+  '/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/agenda': typeof AgendaRoute
-  '/agentes-ia': typeof AgentesIaRoute
-  '/analytics': typeof AnalyticsRoute
-  '/automacoes': typeof AutomacoesRoute
-  '/configuracoes': typeof ConfiguracoesRoute
-  '/conversas': typeof ConversasRoute
-  '/crm': typeof CrmRoute
-  '/equipe': typeof EquipeRoute
-  '/integracoes': typeof IntegracoesRoute
-  '/leads': typeof LeadsRouteWithChildren
-  '/relatorios': typeof RelatoriosRoute
-  '/tarefas': typeof TarefasRoute
-  '/leads/$leadId': typeof LeadsLeadIdRoute
+  '/agenda': typeof AuthenticatedAgendaRoute
+  '/agentes-ia': typeof AuthenticatedAgentesIaRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
+  '/automacoes': typeof AuthenticatedAutomacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/conversas': typeof AuthenticatedConversasRoute
+  '/crm': typeof AuthenticatedCrmRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/equipe': typeof AuthenticatedEquipeRoute
+  '/integracoes': typeof AuthenticatedIntegracoesRoute
+  '/leads': typeof AuthenticatedLeadsRouteWithChildren
+  '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/tarefas': typeof AuthenticatedTarefasRoute
+  '/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/agenda': typeof AgendaRoute
-  '/agentes-ia': typeof AgentesIaRoute
-  '/analytics': typeof AnalyticsRoute
-  '/automacoes': typeof AutomacoesRoute
-  '/configuracoes': typeof ConfiguracoesRoute
-  '/conversas': typeof ConversasRoute
-  '/crm': typeof CrmRoute
-  '/equipe': typeof EquipeRoute
-  '/integracoes': typeof IntegracoesRoute
-  '/leads': typeof LeadsRouteWithChildren
-  '/relatorios': typeof RelatoriosRoute
-  '/tarefas': typeof TarefasRoute
-  '/leads/$leadId': typeof LeadsLeadIdRoute
+  '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
+  '/_authenticated/agentes-ia': typeof AuthenticatedAgentesIaRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
+  '/_authenticated/automacoes': typeof AuthenticatedAutomacoesRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
+  '/_authenticated/conversas': typeof AuthenticatedConversasRoute
+  '/_authenticated/crm': typeof AuthenticatedCrmRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
+  '/_authenticated/integracoes': typeof AuthenticatedIntegracoesRoute
+  '/_authenticated/leads': typeof AuthenticatedLeadsRouteWithChildren
+  '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
+  '/_authenticated/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/agenda'
     | '/agentes-ia'
     | '/analytics'
@@ -155,6 +157,7 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/conversas'
     | '/crm'
+    | '/dashboard'
     | '/equipe'
     | '/integracoes'
     | '/leads'
@@ -163,7 +166,6 @@ export interface FileRouteTypes {
     | '/leads/$leadId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/agenda'
     | '/agentes-ia'
     | '/analytics'
@@ -171,6 +173,7 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/conversas'
     | '/crm'
+    | '/dashboard'
     | '/equipe'
     | '/integracoes'
     | '/leads'
@@ -179,165 +182,166 @@ export interface FileRouteTypes {
     | '/leads/$leadId'
   id:
     | '__root__'
-    | '/'
-    | '/agenda'
-    | '/agentes-ia'
-    | '/analytics'
-    | '/automacoes'
-    | '/configuracoes'
-    | '/conversas'
-    | '/crm'
-    | '/equipe'
-    | '/integracoes'
-    | '/leads'
-    | '/relatorios'
-    | '/tarefas'
-    | '/leads/$leadId'
+    | '/_authenticated/agenda'
+    | '/_authenticated/agentes-ia'
+    | '/_authenticated/analytics'
+    | '/_authenticated/automacoes'
+    | '/_authenticated/configuracoes'
+    | '/_authenticated/conversas'
+    | '/_authenticated/crm'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/equipe'
+    | '/_authenticated/integracoes'
+    | '/_authenticated/leads'
+    | '/_authenticated/relatorios'
+    | '/_authenticated/tarefas'
+    | '/_authenticated/leads/$leadId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AgendaRoute: typeof AgendaRoute
-  AgentesIaRoute: typeof AgentesIaRoute
-  AnalyticsRoute: typeof AnalyticsRoute
-  AutomacoesRoute: typeof AutomacoesRoute
-  ConfiguracoesRoute: typeof ConfiguracoesRoute
-  ConversasRoute: typeof ConversasRoute
-  CrmRoute: typeof CrmRoute
-  EquipeRoute: typeof EquipeRoute
-  IntegracoesRoute: typeof IntegracoesRoute
-  LeadsRoute: typeof LeadsRouteWithChildren
-  RelatoriosRoute: typeof RelatoriosRoute
-  TarefasRoute: typeof TarefasRoute
+  AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
+  AuthenticatedAgentesIaRoute: typeof AuthenticatedAgentesIaRoute
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
+  AuthenticatedAutomacoesRoute: typeof AuthenticatedAutomacoesRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
+  AuthenticatedConversasRoute: typeof AuthenticatedConversasRoute
+  AuthenticatedCrmRoute: typeof AuthenticatedCrmRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
+  AuthenticatedIntegracoesRoute: typeof AuthenticatedIntegracoesRoute
+  AuthenticatedLeadsRoute: typeof AuthenticatedLeadsRouteWithChildren
+  AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
+  AuthenticatedTarefasRoute: typeof AuthenticatedTarefasRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/agenda': {
-      id: '/agenda'
+    '/_authenticated/agenda': {
+      id: '/_authenticated/agenda'
       path: '/agenda'
       fullPath: '/agenda'
-      preLoaderRoute: typeof AgendaRouteImport
+      preLoaderRoute: typeof AuthenticatedAgendaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/agentes-ia': {
-      id: '/agentes-ia'
+    '/_authenticated/agentes-ia': {
+      id: '/_authenticated/agentes-ia'
       path: '/agentes-ia'
       fullPath: '/agentes-ia'
-      preLoaderRoute: typeof AgentesIaRouteImport
+      preLoaderRoute: typeof AuthenticatedAgentesIaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analytics': {
-      id: '/analytics'
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
       path: '/analytics'
       fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/automacoes': {
-      id: '/automacoes'
+    '/_authenticated/automacoes': {
+      id: '/_authenticated/automacoes'
       path: '/automacoes'
       fullPath: '/automacoes'
-      preLoaderRoute: typeof AutomacoesRouteImport
+      preLoaderRoute: typeof AuthenticatedAutomacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/configuracoes': {
-      id: '/configuracoes'
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
       path: '/configuracoes'
       fullPath: '/configuracoes'
-      preLoaderRoute: typeof ConfiguracoesRouteImport
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/conversas': {
-      id: '/conversas'
+    '/_authenticated/conversas': {
+      id: '/_authenticated/conversas'
       path: '/conversas'
       fullPath: '/conversas'
-      preLoaderRoute: typeof ConversasRouteImport
+      preLoaderRoute: typeof AuthenticatedConversasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/crm': {
-      id: '/crm'
+    '/_authenticated/crm': {
+      id: '/_authenticated/crm'
       path: '/crm'
       fullPath: '/crm'
-      preLoaderRoute: typeof CrmRouteImport
+      preLoaderRoute: typeof AuthenticatedCrmRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/equipe': {
-      id: '/equipe'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/equipe': {
+      id: '/_authenticated/equipe'
       path: '/equipe'
       fullPath: '/equipe'
-      preLoaderRoute: typeof EquipeRouteImport
+      preLoaderRoute: typeof AuthenticatedEquipeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/integracoes': {
-      id: '/integracoes'
+    '/_authenticated/integracoes': {
+      id: '/_authenticated/integracoes'
       path: '/integracoes'
       fullPath: '/integracoes'
-      preLoaderRoute: typeof IntegracoesRouteImport
+      preLoaderRoute: typeof AuthenticatedIntegracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/leads': {
-      id: '/leads'
+    '/_authenticated/leads': {
+      id: '/_authenticated/leads'
       path: '/leads'
       fullPath: '/leads'
-      preLoaderRoute: typeof LeadsRouteImport
+      preLoaderRoute: typeof AuthenticatedLeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/relatorios': {
-      id: '/relatorios'
+    '/_authenticated/relatorios': {
+      id: '/_authenticated/relatorios'
       path: '/relatorios'
       fullPath: '/relatorios'
-      preLoaderRoute: typeof RelatoriosRouteImport
+      preLoaderRoute: typeof AuthenticatedRelatoriosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tarefas': {
-      id: '/tarefas'
+    '/_authenticated/tarefas': {
+      id: '/_authenticated/tarefas'
       path: '/tarefas'
       fullPath: '/tarefas'
-      preLoaderRoute: typeof TarefasRouteImport
+      preLoaderRoute: typeof AuthenticatedTarefasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/leads/$leadId': {
-      id: '/leads/$leadId'
+    '/_authenticated/leads/$leadId': {
+      id: '/_authenticated/leads/$leadId'
       path: '/$leadId'
       fullPath: '/leads/$leadId'
-      preLoaderRoute: typeof LeadsLeadIdRouteImport
-      parentRoute: typeof LeadsRoute
+      preLoaderRoute: typeof AuthenticatedLeadsLeadIdRouteImport
+      parentRoute: typeof AuthenticatedLeadsRoute
     }
   }
 }
 
-interface LeadsRouteChildren {
-  LeadsLeadIdRoute: typeof LeadsLeadIdRoute
+interface AuthenticatedLeadsRouteChildren {
+  AuthenticatedLeadsLeadIdRoute: typeof AuthenticatedLeadsLeadIdRoute
 }
 
-const LeadsRouteChildren: LeadsRouteChildren = {
-  LeadsLeadIdRoute: LeadsLeadIdRoute,
+const AuthenticatedLeadsRouteChildren: AuthenticatedLeadsRouteChildren = {
+  AuthenticatedLeadsLeadIdRoute: AuthenticatedLeadsLeadIdRoute,
 }
 
-const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
+const AuthenticatedLeadsRouteWithChildren =
+  AuthenticatedLeadsRoute._addFileChildren(AuthenticatedLeadsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AgendaRoute: AgendaRoute,
-  AgentesIaRoute: AgentesIaRoute,
-  AnalyticsRoute: AnalyticsRoute,
-  AutomacoesRoute: AutomacoesRoute,
-  ConfiguracoesRoute: ConfiguracoesRoute,
-  ConversasRoute: ConversasRoute,
-  CrmRoute: CrmRoute,
-  EquipeRoute: EquipeRoute,
-  IntegracoesRoute: IntegracoesRoute,
-  LeadsRoute: LeadsRouteWithChildren,
-  RelatoriosRoute: RelatoriosRoute,
-  TarefasRoute: TarefasRoute,
+  AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
+  AuthenticatedAgentesIaRoute: AuthenticatedAgentesIaRoute,
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
+  AuthenticatedAutomacoesRoute: AuthenticatedAutomacoesRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
+  AuthenticatedConversasRoute: AuthenticatedConversasRoute,
+  AuthenticatedCrmRoute: AuthenticatedCrmRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
+  AuthenticatedIntegracoesRoute: AuthenticatedIntegracoesRoute,
+  AuthenticatedLeadsRoute: AuthenticatedLeadsRouteWithChildren,
+  AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
+  AuthenticatedTarefasRoute: AuthenticatedTarefasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
