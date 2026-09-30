@@ -1,82 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Bot, History, Loader2, MessageSquarePlus, Send, Sparkles, User } from "lucide-react";
+import { Bot, Check, ClipboardList, Copy, History, Loader2, MessageSquarePlus, Send, Sparkles, User, X } from "lucide-react";
 import { PageHeader } from "@/components/anveo/page";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { askAnveoAi } from "@/lib/anveo-ai";
+import { askAnveoAi, listAnveoActions, updateAnveoAction } from "@/lib/anveo-ai";
 
-export const Route = createFileRoute("/_authenticated/anveo-ai")({
-  head: () => ({ meta: [{ title: "ANVEO AI — ANVEO HUB" }, { name: "description", content: "Assistente inteligente para a operação comercial." }] }),
-  component: AnveoAi,
-});
-
+export const Route = createFileRoute("/_authenticated/anveo-ai")({ head: () => ({ meta: [{ title: "Command Center — ANVEO HUB" }, { name: "description", content: "Command Center seguro para a operação comercial." }] }), component: AnveoAi });
 type Conversation = { id: string; title: string | null; updated_at: string };
 type Message = { id: string; role: "user" | "assistant" | "system"; content: string; created_at: string };
-const suggestions = ["Quais leads devo priorizar hoje?", "Existem follow-ups atrasados?", "Faça um resumo da minha operação comercial."];
+type Action = { id: string; action_type: string; entity_type: string; payload: Record<string, unknown>; status: string; created_at: string; executed_at: string | null };
+const suggestions = ["Planeje meu dia", "Quais leads estão sem atividade?", "Crie uma tarefa de follow-up para revisar os leads prioritários", "Gere uma mensagem para um lead sem resposta"];
+const statusLabels: Record<string, string> = { proposed: "Aguardando confirmação", confirmed: "Executando", executed: "Concluído", cancelled: "Cancelado", failed: "Erro" };
 
 function AnveoAi() {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [conversationId, setConversationId] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [question, setQuestion] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function loadConversations(selectLatest = true) {
-    const { data, error: listError } = await supabase.from("ai_conversations").select("id,title,updated_at").order("updated_at", { ascending: false });
-    if (listError) return setError(listError.message);
-    const rows = (data || []) as Conversation[];
-    setConversations(rows);
-    if (selectLatest && rows[0]) setConversationId(rows[0].id);
-  }
-
-  async function loadMessages(id: string) {
-    if (!id) return setMessages([]);
-    const { data, error: messageError } = await supabase.from("ai_messages").select("id,role,content,created_at").eq("conversation_id", id).order("created_at", { ascending: true });
-    if (messageError) setError(messageError.message);
-    else setMessages((data || []) as Message[]);
-  }
-
-  useEffect(() => { loadConversations().catch((e) => setError(e.message)); }, []);
-  useEffect(() => { loadMessages(conversationId).catch((e) => setError(e.message)); }, [conversationId]);
-
-  async function newConversation() {
-    setError("");
-    const { data: user } = await supabase.auth.getUser();
-    if (!user.user) return setError("Sessão expirada.");
-    const { data, error: createError } = await supabase.from("ai_conversations").insert({ user_id: user.user.id, title: "Nova conversa" }).select("id,title,updated_at").single();
-    if (createError) return setError(createError.message);
-    const row = data as Conversation;
-    setConversations((current) => [row, ...current]);
-    setConversationId(row.id);
-    setMessages([]);
-  }
-
-  async function send() {
-    const text = question.trim();
-    if (!text || !conversationId || loading) return;
-    setError("");
-    setQuestion("");
-    setLoading(true);
-    const optimistic: Message = { id: `pending-${Date.now()}`, role: "user", content: text, created_at: new Date().toISOString() };
-    setMessages((current) => [...current, optimistic]);
-    try {
-      const response = await askAnveoAi({ data: { conversationId, question: text } });
-      setMessages((current) => [...current, response as Message]);
-      await loadConversations(false);
-    } catch (e) {
-      setMessages((current) => current.filter((message) => message.id !== optimistic.id));
-      setError(e instanceof Error ? e.message : "Não foi possível obter uma resposta.");
-    } finally { setLoading(false); }
-  }
-
-  return <div className="mx-auto max-w-7xl">
-    <PageHeader eyebrow="Inteligência operacional" title="ANVEO AI" description="Pergunte sobre sua operação comercial usando dados reais, com respostas assistidas e sem ações automáticas." actions={<Button onClick={newConversation}><MessageSquarePlus className="size-4" />Nova conversa</Button>} />
+  const [conversations, setConversations] = useState<Conversation[]>([]); const [conversationId, setConversationId] = useState(""); const [messages, setMessages] = useState<Message[]>([]); const [actions, setActions] = useState<Action[]>([]); const [question, setQuestion] = useState(""); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [copied, setCopied] = useState(false);
+  async function loadConversations(selectLatest = true) { const { data, error: listError } = await supabase.from("ai_conversations").select("id,title,updated_at").order("updated_at", { ascending: false }); if (listError) return setError(listError.message); const rows = (data || []) as Conversation[]; setConversations(rows); if (selectLatest && rows[0]) setConversationId(rows[0].id); }
+  async function loadMessages(id: string) { if (!id) return setMessages([]); const { data, error: messageError } = await supabase.from("ai_messages").select("id,role,content,created_at").eq("conversation_id", id).order("created_at", { ascending: true }); if (messageError) setError(messageError.message); else setMessages((data || []) as Message[]); }
+  async function loadActions() { try { setActions((await listAnveoActions({})) as Action[]); } catch (e) { setError(e instanceof Error ? e.message : "Não foi possível carregar as ações."); } }
+  useEffect(() => { loadConversations().catch((e) => setError(e.message)); loadActions(); }, []); useEffect(() => { loadMessages(conversationId).catch((e) => setError(e.message)); }, [conversationId]);
+  async function newConversation() { setError(""); const { data: user } = await supabase.auth.getUser(); if (!user.user) return setError("Sessão expirada."); const { data, error: createError } = await supabase.from("ai_conversations").insert({ user_id: user.user.id, title: "Nova conversa" }).select("id,title,updated_at").single(); if (createError) return setError(createError.message); const row = data as Conversation; setConversations((current) => [row, ...current]); setConversationId(row.id); setMessages([]); }
+  async function send() { const text = question.trim(); if (!text || !conversationId || loading) return; setError(""); setQuestion(""); setLoading(true); const optimistic: Message = { id: `pending-${Date.now()}`, role: "user", content: text, created_at: new Date().toISOString() }; setMessages((current) => [...current, optimistic]); try { const response = await askAnveoAi({ data: { conversationId, question: text } }); setMessages((current) => [...current, response.message as Message]); if (response.action) setActions((current) => [response.action as Action, ...current]); await loadConversations(false); } catch (e) { setMessages((current) => current.filter((message) => message.id !== optimistic.id)); setError(e instanceof Error ? e.message : "Não foi possível obter uma resposta."); } finally { setLoading(false); } }
+  async function changeAction(action: Action, operation: "confirm" | "cancel") { try { const updated = await updateAnveoAction({ data: { actionId: action.id, operation } }); setActions((current) => current.map((item) => item.id === action.id ? updated as Action : item)); } catch (e) { setError(e instanceof Error ? e.message : "Não foi possível atualizar a ação."); } }
+  function copyLastMessage() { const last = [...messages].reverse().find((message) => message.role === "assistant"); if (!last) return; navigator.clipboard?.writeText(last.content); setCopied(true); setTimeout(() => setCopied(false), 1600); }
+  return <div className="mx-auto max-w-7xl"><PageHeader eyebrow="Command Center" title="ANVEO AI" description="Interprete recomendações, revise ações e confirme cada alteração antes da execução." actions={<Button onClick={newConversation}><MessageSquarePlus className="size-4" />Nova conversa</Button>} />
     {error && <div className="mb-4 rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
-    <div className="grid min-h-[calc(100vh-15rem)] gap-4 lg:grid-cols-[260px_minmax(0,1fr)]">
-      <aside className="panel hidden p-3 lg:block"><div className="mb-3 flex items-center gap-2 px-2 text-xs font-semibold"><History className="size-4 text-primary" />Histórico</div><div className="space-y-1">{conversations.map((conversation) => <button key={conversation.id} onClick={() => setConversationId(conversation.id)} className={`w-full rounded-md px-3 py-2 text-left text-xs transition ${conversation.id === conversationId ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary"}`}><span className="block truncate">{conversation.title || "Nova conversa"}</span><span className="mt-1 block text-[10px] opacity-70">{new Date(conversation.updated_at).toLocaleDateString("pt-BR")}</span></button>)}{!conversations.length && <p className="p-2 text-xs text-muted-foreground">Nenhuma conversa ainda.</p>}</div></aside>
-      <section className="panel flex min-h-[560px] flex-col overflow-hidden"><div className="flex items-center gap-3 border-b border-border p-4"><span className="grid size-9 place-items-center rounded-md bg-primary/15"><Sparkles className="size-5 text-primary" /></span><div><h2 className="text-sm font-semibold">Assistente ANVEO</h2><p className="text-xs text-muted-foreground">Contexto restrito à sua conta e aos módulos autorizados.</p></div></div><div className="flex-1 space-y-4 overflow-y-auto p-4 md:p-6">{!messages.length ? <div className="flex min-h-80 flex-col items-center justify-center text-center"><Bot className="size-10 text-primary" /><h3 className="mt-4 text-base font-semibold">Como posso ajudar?</h3><p className="mt-2 max-w-md text-sm text-muted-foreground">Use uma sugestão ou faça uma pergunta sobre leads, clientes, tarefas e follow-ups.</p><div className="mt-5 grid w-full max-w-xl gap-2 sm:grid-cols-3">{suggestions.map((suggestion) => <button key={suggestion} onClick={() => setQuestion(suggestion)} className="rounded-md border border-border bg-secondary/50 p-3 text-left text-xs transition hover:border-primary/50 hover:bg-primary/5">{suggestion}</button>)}</div></div> : messages.map((message) => <div key={message.id} className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`}><div className={`flex max-w-[85%] gap-3 rounded-lg p-3 text-sm ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary"}`}>{message.role !== "user" && <Bot className="mt-0.5 size-4 shrink-0 text-primary" />}<p className="whitespace-pre-wrap leading-6">{message.content}</p>{message.role === "user" && <User className="mt-0.5 size-4 shrink-0" />}</div></div>)}{loading && <div className="flex items-center gap-2 text-xs text-muted-foreground"><Loader2 className="size-4 animate-spin text-primary" />Analisando os dados permitidos...</div>}</div><div className="border-t border-border p-4"><div className="flex items-end gap-2 rounded-md border border-input bg-surface p-2 focus-within:border-primary"><textarea value={question} onChange={(event) => setQuestion(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); send(); } }} placeholder="Pergunte sobre sua operação..." className="min-h-12 flex-1 resize-none bg-transparent p-2 text-sm outline-none" rows={2} /><Button size="icon" onClick={send} disabled={loading || !question.trim() || !conversationId} aria-label="Enviar pergunta"><Send className="size-4" /></Button></div><p className="mt-2 text-[10px] text-muted-foreground">Enter para enviar · Shift + Enter para nova linha · As respostas são análises e não executam ações.</p></div></section>
-    </div>
-  </div>;
+    <div className="grid min-h-[calc(100vh-15rem)] gap-4 lg:grid-cols-[260px_minmax(0,1fr)_300px]"><aside className="panel hidden p-3 lg:block"><div className="mb-3 flex items-center gap-2 px-2 text-xs font-semibold"><History className="size-4 text-primary" />Histórico</div><div className="space-y-1">{conversations.map((conversation) => <button key={conversation.id} onClick={() => setConversationId(conversation.id)} className={`w-full rounded-md px-3 py-2 text-left text-xs transition ${conversation.id === conversationId ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary"}`}><span className="block truncate">{conversation.title || "Nova conversa"}</span><span className="mt-1 block text-[10px] opacity-70">{new Date(conversation.updated_at).toLocaleDateString("pt-BR")}</span></button>)}{!conversations.length && <p className="p-2 text-xs text-muted-foreground">Nenhuma conversa ainda.</p>}</div></aside>
+      <section className="panel flex min-h-[560px] flex-col overflow-hidden"><div className="flex items-center gap-3 border-b border-border p-4"><span className="grid size-9 place-items-center rounded-md bg-primary/15"><Sparkles className="size-5 text-primary" /></span><div><h2 className="text-sm font-semibold">Assistente ANVEO</h2><p className="text-xs text-muted-foreground">Dados reais da conta · execução sempre confirmada</p></div></div><div className="flex-1 space-y-4 overflow-y-auto p-4 md:p-6">{!messages.length ? <div className="flex min-h-80 flex-col items-center justify-center text-center"><Bot className="size-10 text-primary" /><h3 className="mt-4 text-base font-semibold">Seu Command Center está pronto</h3><p className="mt-2 max-w-md text-sm text-muted-foreground">Planeje o dia, encontre leads sem atividade, gere mensagens ou proponha tarefas. Nada é executado sem sua confirmação.</p><div className="mt-5 grid w-full max-w-xl gap-2 sm:grid-cols-2">{suggestions.map((suggestion) => <button key={suggestion} onClick={() => setQuestion(suggestion)} className="rounded-md border border-border bg-secondary/50 p-3 text-left text-xs transition hover:border-primary/50 hover:bg-primary/5">{suggestion}</button>)}</div></div> : messages.map((message) => <div key={message.id} className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`}><div className={`flex max-w-[85%] gap-3 rounded-lg p-3 text-sm ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary"}`}>{message.role !== "user" && <Bot className="mt-0.5 size-4 shrink-0 text-primary" />}<p className="whitespace-pre-wrap leading-6">{message.content}</p>{message.role === "user" && <User className="mt-0.5 size-4 shrink-0" />}</div></div>)}{loading && <div className="flex items-center gap-2 text-xs text-muted-foreground"><Loader2 className="size-4 animate-spin text-primary" />Preparando análise segura...</div>}</div><div className="border-t border-border p-4"><div className="flex items-end gap-2 rounded-md border border-input bg-surface p-2 focus-within:border-primary"><textarea value={question} onChange={(event) => setQuestion(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); send(); } }} placeholder="Peça uma análise ou proponha uma ação..." className="min-h-12 flex-1 resize-none bg-transparent p-2 text-sm outline-none" rows={2} /><Button size="icon" onClick={send} disabled={loading || !question.trim() || !conversationId} aria-label="Enviar pergunta"><Send className="size-4" /></Button></div><p className="mt-2 text-[10px] text-muted-foreground">Enter para enviar · Shift + Enter para nova linha · Sem exclusões, pagamentos, cobranças ou integrações externas.</p></div></section>
+      <aside className="space-y-4"><section className="panel p-4"><div className="mb-3 flex items-center justify-between"><div className="flex items-center gap-2"><ClipboardList className="size-4 text-primary" /><h2 className="text-sm font-semibold">Ações seguras</h2></div><span className="text-[10px] text-muted-foreground">{actions.length} registradas</span></div>{actions.length === 0 ? <p className="text-xs text-muted-foreground">As ações propostas aparecerão aqui para revisão.</p> : <div className="space-y-3">{actions.slice(0, 8).map((action) => <div key={action.id} className="rounded-md border border-border bg-secondary/40 p-3"><div className="flex items-start justify-between gap-2"><p className="text-xs font-medium">{action.action_type === "create_task" ? "Criar tarefa" : action.action_type === "create_activity" ? "Registrar atividade" : "Movimentação financeira"}</p><span className={`text-[10px] ${action.status === "executed" ? "text-success" : action.status === "failed" ? "text-destructive" : "text-primary"}`}>{statusLabels[action.status] || action.status}</span></div><p className="mt-2 line-clamp-2 text-[11px] text-muted-foreground">{String(action.payload.titulo || action.payload.descricao || action.payload.valor || "Ação proposta")}</p>{action.status === "proposed" && <div className="mt-3 flex gap-2"><Button size="sm" className="h-8 flex-1 text-[11px]" onClick={() => changeAction(action, "confirm")}> <Check className="size-3" />Confirmar</Button><Button size="sm" variant="outline" className="h-8 px-2" onClick={() => changeAction(action, "cancel")} aria-label="Cancelar ação"><X className="size-3" /></Button></div>}</div>)}</div>}</section><section className="panel p-4"><div className="flex items-center justify-between"><h2 className="text-sm font-semibold">Mensagem gerada</h2><Button variant="ghost" size="sm" onClick={copyLastMessage}>{copied ? <Check className="size-3" /> : <Copy className="size-3" />}{copied ? "Copiada" : "Copiar"}</Button></div><p className="mt-2 text-xs leading-5 text-muted-foreground">As mensagens podem ser copiadas ou transformadas em tarefa de envio. O ANVEO não envia automaticamente por WhatsApp, e-mail ou outros canais.</p></section><section className="rounded-md border border-primary/20 bg-primary/10 p-4"><p className="text-xs font-semibold">Proteções ativas</p><p className="mt-2 text-[11px] leading-5 text-muted-foreground">Isolamento por usuário, validação server-side, confirmação obrigatória e bloqueio de exclusões autônomas, pagamentos e integrações externas.</p></section></aside></div></div>;
 }
