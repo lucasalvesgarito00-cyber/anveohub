@@ -13,3 +13,4 @@
 
 - Keep all demonstration business data in `src/lib/anveo-data.ts` so every module presents one coherent operation.
 - Route screens reuse the ANVEO application shell; each major product module remains a distinct TanStack route for navigation and metadata.
+- Keep public authentication routes at the top level and all ANVEO product screens under the `_authenticated` pathless layout so access control is centralized.
