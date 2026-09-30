@@ -80,7 +80,7 @@ function AuthPage() {
       } else {
         const { data, error: signinError } = await supabase.auth.signInWithPassword({ email, password });
         if (signinError) throw signinError;
-        await ensureProfile(data.user.id, data.user.user_metadata.display_name as string | undefined);
+        await ensureProfile(data.user.id, data.user.user_metadata["display_name"] as string | undefined);
       }
       await navigate({ to: "/dashboard", replace: true });
     } catch (caught) {
