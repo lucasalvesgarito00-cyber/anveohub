@@ -1,4 +1,4 @@
-import { ClientOnly, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, Eye, EyeOff, LoaderCircle, Mail } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { lovable } from "@/integrations/lovable";
@@ -20,12 +20,8 @@ export const Route = createFileRoute("/auth")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <ClientOnly fallback={<AuthLoading />}><AuthPage /></ClientOnly>,
+  component: AuthPage,
 });
-
-function AuthLoading() {
-  return <main className="fine-grid relative grid min-h-screen place-items-center bg-background"><LoaderCircle className="size-6 animate-spin text-primary" /></main>;
-}
 
 function GoogleMark() {
   return <span aria-hidden className="grid size-5 place-items-center rounded-sm bg-foreground text-xs font-bold text-background">G</span>;
