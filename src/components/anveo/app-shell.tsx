@@ -1,14 +1,14 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import { Activity, BarChart3, Bell, Bot, CalendarDays, ChevronDown, CircleDollarSign, CircleHelp, ClipboardCheck, Command, Contact, LayoutDashboard, LogOut, Menu, MessageSquareText, Plug, Search, Settings, Users, Workflow, X } from "lucide-react";
+import { Activity, BarChart3, Bell, Bot, CalendarDays, ChevronDown, CircleDollarSign, CircleHelp, ClipboardCheck, Command, Contact, LayoutDashboard, LogOut, Menu, MessageSquareText, Plug, Search, Settings, Sparkles, Users, Workflow, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { leads, tasks, money } from "@/lib/anveo-data";
 import { supabase } from "@/integrations/supabase/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const nav=[
- {to:"/dashboard",label:"Visão Geral",icon:LayoutDashboard},{to:"/crm",label:"CRM",icon:Activity},{to:"/leads",label:"Leads",icon:Contact},{to:"/conversas",label:"Conversas",icon:MessageSquareText},{to:"/tarefas",label:"Tarefas",icon:ClipboardCheck},{to:"/clientes",label:"Clientes",icon:Contact},{to:"/financeiro",label:"Financeiro",icon:CircleDollarSign},{to:"/agenda",label:"Agenda",icon:CalendarDays},{to:"/automacoes",label:"Automações",icon:Workflow},{to:"/agentes-ia",label:"Agentes IA",icon:Bot},{to:"/analytics",label:"Analytics",icon:BarChart3},{to:"/relatorios",label:"Relatórios",icon:Command},{to:"/equipe",label:"Equipe",icon:Users},{to:"/integracoes",label:"Integrações",icon:Plug},{to:"/configuracoes",label:"Configurações",icon:Settings},
+ {to:"/dashboard",label:"Visão Geral",icon:LayoutDashboard},{to:"/crm",label:"CRM",icon:Activity},{to:"/leads",label:"Leads",icon:Contact},{to:"/conversas",label:"Conversas",icon:MessageSquareText},{to:"/tarefas",label:"Tarefas",icon:ClipboardCheck},{to:"/clientes",label:"Clientes",icon:Contact},{to:"/financeiro",label:"Financeiro",icon:CircleDollarSign},{to:"/agenda",label:"Agenda",icon:CalendarDays},{to:"/automacoes",label:"Automações",icon:Workflow},{to:"/anveo-ai",label:"ANVEO AI",icon:Sparkles},{to:"/agentes-ia",label:"Agentes IA",icon:Bot},{to:"/analytics",label:"Analytics",icon:BarChart3},{to:"/relatorios",label:"Relatórios",icon:Command},{to:"/equipe",label:"Equipe",icon:Users},{to:"/integracoes",label:"Integrações",icon:Plug},{to:"/configuracoes",label:"Configurações",icon:Settings},
 ] as const;
 export function AppShell({children}:{children:ReactNode}){
  const path=useRouterState({select:s=>s.location.pathname}); const [collapsed,setCollapsed]=useState(false); const [mobile,setMobile]=useState(false); const [search,setSearch]=useState(false); const [notifications,setNotifications]=useState(false);
