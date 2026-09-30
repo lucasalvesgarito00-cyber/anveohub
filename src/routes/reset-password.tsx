@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CheckCircle2, Eye, EyeOff, KeyRound, LoaderCircle } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/reset-password")({
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
-  component: ResetPasswordPage,
+  component: () => <ClientOnly fallback={<main className="fine-grid grid min-h-screen place-items-center bg-background"><LoaderCircle className="size-6 animate-spin text-primary" /></main>}><ResetPasswordPage /></ClientOnly>,
 });
 
 function ResetPasswordPage() {
