@@ -6,13 +6,11 @@ import {
   useRouter,
   HeadContent,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AppShell } from "@/components/anveo/app-shell";
 import { supabase } from "@/integrations/supabase/client";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -121,7 +119,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -132,11 +129,9 @@ function RootComponent() {
     return () => data.subscription.unsubscribe();
   }, [queryClient, router]);
 
-  const isPublicAuthPage = pathname === "/" || pathname === "/auth" || pathname === "/reset-password";
-
   return (
     <QueryClientProvider client={queryClient}>
-      {isPublicAuthPage ? <Outlet /> : <AppShell><Outlet /></AppShell>}
+      <Outlet />
       <Toaster position="top-right" />
     </QueryClientProvider>
   );
