@@ -18,6 +18,9 @@
 - [ ] Auditar estrutura e políticas existentes no backend
 - [x] Implementar autenticação, sessão persistente e proteção das páginas internas
 - [ ] Resolver workspace do usuário por `profiles.workspace_id`
+- [ ] Corrigir fluxo Criar Lead → banco → CRM, com persistência e erros visíveis
+- [ ] Atualizar métricas reais do Dashboard para pipeline aberto e vendas
+- [ ] Validar criação, recarga, mudança para Ganho e reflexos no Dashboard
 - [ ] Conectar Leads ao backend com criação, edição, exclusão, busca e filtros
 - [ ] Conectar CRM/deals ao backend e persistir alterações do pipeline
 - [ ] Conectar Tarefas ao backend com CRUD e conclusão
