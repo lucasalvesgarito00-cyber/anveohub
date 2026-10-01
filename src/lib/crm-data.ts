@@ -74,6 +74,17 @@ export async function currentUserId() {
   return data.user.id as string;
 }
 
+export async function currentLeadOwner() {
+  const user_id = await currentUserId();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("workspace_id")
+    .eq("id", user_id)
+    .maybeSingle();
+  if (error) throw error;
+  return { user_id, workspace_id: data?.workspace_id ?? null };
+}
+
 export function today() {
   return new Date().toISOString().slice(0, 10);
 }
